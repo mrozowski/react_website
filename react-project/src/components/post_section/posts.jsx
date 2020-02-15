@@ -1,35 +1,59 @@
 import React, { Component } from "react";
 import Post from "../post_section/post";
+import "../post_section/style.css";
 
 class Posts extends Component {
   state = {
+    nick: "Szymon",
+    value: "",
     posts: [
       {
         id: 1,
         nick: "Szymon",
         content: "Your post",
         date: new Date(),
-        time: "0 sec ago"
+        time: ""
+      },
+      {
+        id: 2,
+        nick: "Szymon",
+        content: "Your post two",
+        date: new Date("2020-02-15"),
+        time: ""
+      },
+      {
+        id: 3,
+        nick: "Szymon",
+        content: "Your post three",
+        date: new Date("2020-02-12"),
+        time: ""
       }
     ]
   };
 
+  componentDidMount() {
+    const postsSort = [...this.state.posts].sort((a, b) => {
+      if (a.date > b.date) return 1;
+      if (a.date < b.date) return -1;
+      return 0;
+    });
+
+    this.setState({ posts: postsSort });
+  }
   showDate = date => {
-    console.log("wywolano showDate()");
-    const timeD = this.getTimeDifference(date); //secounds
+    const timeD = this.getTimeDifference(date); //minutes
     let temp = "";
 
-    if (timeD < 60 * 60 * 24) {
+    if (timeD < 60 * 24) {
       //less than a day
-      const minutes = Math.floor(timeD / 60); //minutes
-      if (minutes < 1) temp = timeD + " sec ago";
-      else if (minutes < 60) temp = minutes + " min ago";
-      else if (minutes >= 60 && minutes < 120) temp = "1 hour ago";
-      else if (minutes < 60 * 24)
-        temp = Math.floor(minutes / 60) + " hours ago";
+      if (timeD < 1) temp = "now";
+      //less then minute
+      else if (timeD < 60) temp = timeD + " min ago";
+      else if (timeD >= 60 && timeD < 120) temp = "1 hour ago";
+      else if (timeD < 60 * 24) temp = Math.floor(timeD / 60) + " hours ago";
     } else {
       //a day and more
-      const days = Math.floor((timeD / 60) * 60 * 24);
+      const days = Math.floor(timeD / (60 * 24));
       if (days === 1) temp = "1 day ago";
       else if (days < 7) temp = days + " days ago";
       else if (days === 7) temp = "1 week ago";
@@ -40,17 +64,67 @@ class Posts extends Component {
   };
 
   getTimeDifference = date => {
-    console.log("wywolano getTimedif");
-    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
-    return seconds;
+    const minutes = Math.floor(
+      (new Date().getTime() - date.getTime()) / (1000 * 60)
+    );
+    return Math.abs(minutes);
+  };
+
+  handleChange = event => {
+    this.setState({ value: event.target.value });
+  };
+
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      this.handleSubmit();
+    }
+  };
+
+  handleSubmit = () => {
+    if (!(this.state.value === "")) {
+      let posts = [...this.state.posts];
+      const index = this.state.index + 1;
+      const newPost = {
+        id: index,
+        nick: this.state.nick,
+        content: this.state.value,
+        date: new Date()
+      };
+      posts.push(newPost);
+      this.setState({ posts: posts, index: index, value: "" });
+    }
   };
 
   render() {
     return (
-      <div className="ml-3">
-        {this.state.posts.map(post => (
-          <Post key={post.id} post={post} when={this.showDate} />
-        ))}
+      <div className="ml-3 posts">
+        <section className="form-group">
+          <label form="Post">Type your post</label>
+          <input
+            type="text"
+            className="form-control"
+            value={this.state.value}
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+          />
+
+          <input
+            type="submit"
+            value="Submit"
+            onClick={this.handleSubmit}
+            className="btn btn-primary btn-sm m-2 "
+          />
+        </section>
+        {this.state.posts
+          .map(post => (
+            <Post
+              key={post.id}
+              post={post}
+              when={this.showDate}
+              getTime={this.getTimeDifference}
+            />
+          ))
+          .reverse()}
       </div>
     );
   }

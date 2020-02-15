@@ -2,14 +2,18 @@ import React, { Component } from "react";
 
 class Post extends Component {
   state = {
-    time: "0 sec ago"
+    time: ""
   };
 
   componentDidMount() {
-    this.interval = setInterval(
-      () => this.setState({ time: this.props.when(this.props.post.date) }),
-      1000 * 60
-    );
+    this.setState({ time: this.props.when(this.props.post.date) });
+
+    if (this.props.getTime(this.props.post.date) < 60) {
+      this.interval = setInterval(
+        () => this.setState({ time: this.props.when(this.props.post.date) }),
+        60000 // one minute
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -18,11 +22,11 @@ class Post extends Component {
 
   render() {
     return (
-      <div>
-        <span> {this.props.post.nick}</span>
+      <div className="post">
+        <span> {this.props.post.nick} </span>
         <section>
           <span> {this.props.post.content} </span>
-          <span>{this.state.time}</span>
+          <span className="float-right"> {this.state.time} </span>
         </section>
       </div>
     );
