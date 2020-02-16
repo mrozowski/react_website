@@ -6,6 +6,7 @@ class Posts extends Component {
   state = {
     nick: "Szymon",
     value: "",
+    index: 1,
     posts: [
       {
         id: 1,
@@ -38,7 +39,8 @@ class Posts extends Component {
       return 0;
     });
 
-    this.setState({ posts: postsSort });
+    const index = this.state.posts.length;
+    this.setState({ posts: postsSort, index });
   }
   showDate = date => {
     const timeD = this.getTimeDifference(date); //minutes
@@ -98,22 +100,23 @@ class Posts extends Component {
   render() {
     return (
       <div className="ml-3 posts">
-        <section className="form-group">
-          <label form="Post">Type your post</label>
-          <input
-            type="text"
-            className="form-control"
-            value={this.state.value}
-            onChange={this.handleChange}
-            onKeyPress={this.handleKeyPress}
-          />
+        <section className="submit-post project-color-main project-border-radius">
+          <label form="Post">Share your toughts</label>
+          <div className="d-flex">
+            <textarea
+              className="type-post"
+              value={this.state.value}
+              onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
+            />
 
-          <input
-            type="submit"
-            value="Submit"
-            onClick={this.handleSubmit}
-            className="btn btn-primary btn-sm m-2 "
-          />
+            <input
+              type="submit"
+              value="Submit"
+              onClick={this.handleSubmit}
+              className="btn btn-primary btn-sm m-2 project-border-radius submit-button project-shadow"
+            />
+          </div>
         </section>
         {this.state.posts
           .map(post => (

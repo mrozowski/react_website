@@ -1,6 +1,40 @@
 .post {
   border-radius: 1.5em;
   background-color: rgb(224, 224, 224);
+  padding: 0.5em 3em 0.5em 1.5em;
+  margin-top: 1em;
+}
+
+.submit-post {
+  border-radius: 1em;
+  padding: 1.5em;
+}
+
+.type-post {
+  width: 85%;
+  height: 3em;
+  resize: none;
+  border: none;
+  border-radius: 1.5em;
   padding: 0.5em 1em;
-  margin-bottom: 1em;
+  transition: all 0.5s ease;
+}
+
+.type-post:focus {
+  outline: none;
+  height: 6em;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+}
+.time {
+  float: right;
+  font-style: italic;
+  font-size: 90%;
+}
+
+.submit-button {
+  height: 3em;
 }

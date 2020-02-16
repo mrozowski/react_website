@@ -64,7 +64,7 @@ class Items extends Component {
 
   render() {
     return (
-      <div className="w-20 pl-3 pr-3 item-list">
+      <div className="w-20 pl-3 pr-3 item-list project-border-radius">
         <section className="d-flex justify-content-center flex-column mb-2">
           <span className="text-big text-center justify-self-center mb-2">
             Items: {this.state.items.filter(e => e.value > 0).length}

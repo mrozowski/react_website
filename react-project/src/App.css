@@ -8,7 +8,6 @@
   grid-column: 1 / span 1;
   background-color: #fff5c4;
   border: #d9cc8c solid 10px;
-  border-radius: 1.5em;
 }
 
 .posts {
@@ -19,10 +18,26 @@
 
 .right-bar {
   grid-column: 3 / span 1;
-  height: 50vh;
+
+  background-color: #fff5c4;
+  width: 20em;
+}
+
+.project-border-radius {
+  border-radius: 1.5em;
+}
+
+.project-color-main {
   background-color: #ffed94;
 }
 
+.project-text-large {
+  font-size: 3.5em;
+}
+
+.project-shadow {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
 .w-20 {
   width: 15.625em;
 }
@@ -42,6 +57,12 @@
 
 .text-big {
   font-size: 2em;
+}
+
+.pop-picture {
+  border-radius: 1.5em 1.5em 0 1.5em;
+  width: 100%;
+  margin-top: 1em;
 }
 
 button {
@@ -70,14 +91,6 @@ button:active {
   background-color: #d9cc8c;
   font-weight: bold;
   color: #5a553a;
-}
-
-.project-color-main {
-  background-color: #ffed94;
-}
-
-.project-text-large {
-  font-size: 3.5em;
 }
 
 .delete-button {

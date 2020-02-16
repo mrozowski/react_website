@@ -23,10 +23,10 @@ class Post extends Component {
   render() {
     return (
       <div className="post">
-        <span> {this.props.post.nick} </span>
+        <span className="nick"> {this.props.post.nick} </span>
         <section>
           <span> {this.props.post.content} </span>
-          <span className="float-right"> {this.state.time} </span>
+          <span className="time"> {this.state.time} </span>
         </section>
       </div>
     );
